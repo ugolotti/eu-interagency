@@ -15,7 +15,7 @@ st.set_page_config(page_title="Tournament Dashboard", layout="wide")
 @st.cache_data
 def load_data():
     standings = pd.read_excel(EXCEL_FILE, sheet_name="Standings")
-    global_df = pd.read_excel(EXCEL_FILE, sheet_name="Global")
+    global_df = pd.read_excel(EXCEL_FILE, sheet_name="Global", header=3)
 
     # Normalize column names (remove extra spaces)
     standings.columns = standings.columns.str.strip()
