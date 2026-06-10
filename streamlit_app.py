@@ -9,16 +9,82 @@ EXCEL_FILE = "EU interagencies schedule.xlsx"
 
 st.set_page_config(page_title="Tournament Dashboard", layout="wide")
 
+@st.cache_data
+def load_standings():
+    raw = pd.read_excel(
+        FILE_PATH,
+        sheet_name="Standings",
+        header=None
+    )
+
+    sections = {}
+
+    current_category = None
+    i = 0
+
+    while i < len(raw):
+
+        value = raw.iloc[i, 0]
+
+        if pd.isna(value):
+            i += 1
+            continue
+
+        value = str(value).strip()
+
+        if value in ["2x2 MIX", "2x2 M", "2x2 F", "4x4 Mix"]:
+
+            current_category = value
+            sections[current_category] = {}
+            i += 1
+            continue
+
+        if value.startswith("Group"):
+
+            group_name = value
+
+            headers = raw.iloc[i].tolist()
+
+            teams = []
+            r = i + 1
+
+            while r < len(raw):
+
+                first = raw.iloc[r, 0]
+
+                if pd.isna(first):
+                    break
+
+                first = str(first).strip()
+
+                if first.startswith("Group"):
+                    break
+
+                if first in ["2x2 MIX", "2x2 M", "2x2 F", "4x4 Mix"]:
+                    break
+
+                teams.append(raw.iloc[r].tolist())
+                r += 1
+
+            df = pd.DataFrame(teams, columns=headers)
+
+            sections[current_category][group_name] = df
+
+            i = r
+            continue
+
+        i += 1
+
+    return sections
+
 # -----------------------------
 # Load data
 # -----------------------------
 @st.cache_data
 def load_data():
-    standings = pd.read_excel(EXCEL_FILE, sheet_name="Standings")
     global_df = pd.read_excel(EXCEL_FILE, sheet_name="Global", header=3)
 
     # Normalize column names (remove extra spaces)
-    standings.columns = standings.columns.str.strip()
     global_df.columns = global_df.columns.str.strip()
 
     # Build a datetime column from Date + Time
@@ -27,22 +93,39 @@ def load_data():
         errors="coerce"
     )
 
-    return standings, global_df
+    return global_df
 
 
-standings_df, global_df = load_data()
+global_df = load_data()
 
 # -----------------------------
 # Tabs
 # -----------------------------
-tab1, tab2, tab3 = st.tabs(["Standings", "Next Matches by Court", "Search by Team"])
+tab1, tab2, tab3 = st.tabs(
+    ["Standings", "Next Matches", "Search Team"]
+)
+
 
 # -----------------------------
 # Tab 1 - Standings
 # -----------------------------
 with tab1:
-    st.title("Standings")
-    st.dataframe(standings_df, use_container_width=True)
+
+    standings = load_standings()
+
+    for category, groups in standings.items():
+
+        st.header(category)
+
+        for group_name, df in groups.items():
+
+            st.subheader(group_name)
+
+            st.dataframe(
+                df,
+                use_container_width=True,
+                hide_index=True
+            )
 
 # -----------------------------
 # Tab 2 - Next 3 matches for each court
