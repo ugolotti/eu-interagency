@@ -129,7 +129,7 @@ with tab1:
             for group_name, df in groups.items():
 
                 st.markdown(f"### {group_name}")
-                st.dataframe(df.style.hide(axis="index"), use_container_width=True)
+                st.dataframe(df, use_container_width=True, hide_index=True)
 
 # -----------------------------
 # Tab 2 - Next 3 matches for each court
@@ -154,7 +154,7 @@ with tab2:
             st.subheader(f"Court {int(court)}")
             display = court_matches[["MatchDateTime", "Team1", "Team 2"]].copy()
             display.columns = ["Date & Time", "Team 1", "Team 2"]
-            st.dataframe(display.style.hide(axis="index"), use_container_width=True)
+            st.dataframe(display, use_container_width=True, hide_index=True)
 
 # -----------------------------
 # Tab 3 - Search by team name
@@ -178,6 +178,6 @@ with tab3:
             st.warning("No matches found for that team.")
         else:
             results = results.rename(columns={"MatchDateTime": "Date & Time"})
-            st.dataframe(results.style.hide(axis="index"), use_container_width=True)
+            st.dataframe(results, use_container_width=True, hide_index=True)
     else:
         st.info("Type a team name to search for matches.")
