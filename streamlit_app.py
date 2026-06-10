@@ -1,6 +1,12 @@
 import pandas as pd
 import streamlit as st
 from datetime import datetime
+from streamlit_autorefresh import st_autorefresh
+
+st_autorefresh(
+    interval=60 * 1000,  # 60 seconds
+    key="schedule_refresh"
+)
 
 # -----------------------------
 # Configuration
@@ -8,8 +14,11 @@ from datetime import datetime
 EXCEL_FILE = "EU interagencies schedule.xlsx"
 
 st.set_page_config(page_title="Tournament Dashboard", layout="wide")
+st.caption(
+    f"Last update: {datetime.now().strftime('%H:%M:%S')}"
+)
 
-@st.cache_data
+@st.cache_data(ttl=60)
 def load_standings():
     raw = pd.read_excel(
         EXCEL_FILE,
