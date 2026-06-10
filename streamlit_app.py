@@ -149,9 +149,8 @@ with tab2:
         courts = upcoming["Court"].dropna().unique()
 
         for court in courts:
-            st.info(upcoming.columns)
-            st.info(upcoming["Court"])
             court_matches = upcoming[upcoming["Court"] == court].head(3)
+            st.info(court_matches)
 
             st.subheader(f"Court {court}")
             display = court_matches[["MatchDateTime", "Team 1", "Team 2"]].copy()
