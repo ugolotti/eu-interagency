@@ -115,17 +115,12 @@ with tab1:
 
     for category, groups in standings.items():
 
-        st.header(category)
+        with st.expander(category, expanded=True):
 
-        for group_name, df in groups.items():
+            for group_name, df in groups.items():
 
-            st.subheader(group_name)
-
-            st.dataframe(
-                df,
-                use_container_width=True,
-                hide_index=True
-            )
+                st.markdown(f"### {group_name}")
+                st.dataframe(df, use_container_width=True)
 
 # -----------------------------
 # Tab 2 - Next 3 matches for each court
