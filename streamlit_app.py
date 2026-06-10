@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime
 from streamlit_autorefresh import st_autorefresh
+import gdown
 
 st_autorefresh(
     interval=60 * 1000,  # 60 seconds
@@ -11,7 +12,11 @@ st_autorefresh(
 # -----------------------------
 # Configuration
 # -----------------------------
-EXCEL_FILE = "EU interagencies schedule.xlsx"
+# EXCEL_FILE = "EU interagencies schedule.xlsx"
+EXCEL_FILE = "file.xlsx"
+url = 'https://docs.google.com/spreadsheets/d/1oEsp-k_-2u3uhVmK33YaN4LycjW3CzuE/edit?usp=sharing&ouid=105307248857860129530&rtpof=true&sd=true'
+
+gdown.download(url, EXCEL_FILE, quiet=False)
 
 st.set_page_config(page_title="Tournament Dashboard", layout="wide")
 st.caption(
