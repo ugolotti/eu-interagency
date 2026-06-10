@@ -166,7 +166,7 @@ with tab3:
 
     if team_name:
         mask = (
-            global_df["Team 1"].astype(str).str.contains(team_name, case=False, na=False)
+            global_df["Team1"].astype(str).str.contains(team_name, case=False, na=False)
             | global_df["Team 2"].astype(str).str.contains(team_name, case=False, na=False)
         )
 
