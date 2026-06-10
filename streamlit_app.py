@@ -16,15 +16,15 @@ st_autorefresh(
 EXCEL_FILE = "file.xlsx"
 url = 'https://docs.google.com/spreadsheets/d/1oEsp-k_-2u3uhVmK33YaN4LycjW3CzuE/edit?usp=sharing&ouid=105307248857860129530&rtpof=true&sd=true'
 
-gdown.download(url, EXCEL_FILE, quiet=False)
-
-st.set_page_config(page_title="Tournament Dashboard", layout="wide")
-st.caption(
-    f"Last update: {datetime.now().strftime('%H:%M:%S')}"
-)
 
 @st.cache_data(ttl=60)
 def load_standings():
+    gdown.download(url, EXCEL_FILE, quiet=False)
+
+    st.set_page_config(page_title="Tournament Dashboard", layout="wide")
+    st.caption(
+        f"Last update: {datetime.now().strftime('%H:%M:%S')}"
+    )
     raw = pd.read_excel(
         EXCEL_FILE,
         sheet_name="Standings",
@@ -96,6 +96,12 @@ def load_standings():
 # -----------------------------
 @st.cache_data
 def load_data():
+    gdown.download(url, EXCEL_FILE, quiet=False)
+
+    st.set_page_config(page_title="Tournament Dashboard", layout="wide")
+    st.caption(
+        f"Last update: {datetime.now().strftime('%H:%M:%S')}"
+    )
     global_df = pd.read_excel(EXCEL_FILE, sheet_name="Global", header=3)
 
     # Normalize column names (remove extra spaces)
