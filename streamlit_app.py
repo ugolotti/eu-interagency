@@ -150,10 +150,9 @@ with tab2:
 
         for court in courts:
             court_matches = upcoming[upcoming["Court"] == court].head(3)
-            st.info(court_matches)
 
             st.subheader(f"Court {court}")
-            display = court_matches[["MatchDateTime", "Team 1", "Team 2"]].copy()
+            display = court_matches[["MatchDateTime", "Team1", "Team 2"]].copy()
             display.columns = ["Date & Time", "Team 1", "Team 2"]
             st.dataframe(display, use_container_width=True)
 
