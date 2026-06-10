@@ -12,7 +12,7 @@ st.set_page_config(page_title="Tournament Dashboard", layout="wide")
 @st.cache_data
 def load_standings():
     raw = pd.read_excel(
-        FILE_PATH,
+        EXCEL_FILE,
         sheet_name="Standings",
         header=None
     )
