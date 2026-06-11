@@ -23,9 +23,6 @@ def load_standings():
     gdown.download(url, EXCEL_FILE, quiet=False)
 
     st.set_page_config(page_title="Tournament Dashboard", layout="wide")
-    st.caption(
-        f"Last update: {datetime.now(ITALY_TZ).strftime('%H:%M:%S')}"
-    )
     raw = pd.read_excel(
         EXCEL_FILE,
         sheet_name="Standings",
