@@ -218,20 +218,34 @@ with tab4:
 
     st.markdown(
         f"""
+        <style>
+            html, body, [data-testid="stAppViewContainer"] {{
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+            }}
+
+            [data-testid="stAppViewContainer"] {{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }}
+        </style>
+
         <div style="
             display:flex;
             flex-direction:column;
             justify-content:center;
             align-items:center;
-            height:70vh;
+            width:100vw;
+            height:100vh;
         ">
             <h1 style="
-                font-size:10rem;
+                font-size:12vw;
                 margin:0;
             ">
                 {now.strftime('%H:%M')}
             </h1>
-
         </div>
         """,
         unsafe_allow_html=True,
