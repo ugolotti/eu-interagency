@@ -215,50 +215,39 @@ with tab3:
 
 with tab4:
 
-    st.markdown(
-        """
-        <style>
-            .block-container {
-                padding: 0;
-                max-width: 100%;
-            }
+    now = datetime.now(ITALY_TZ)
 
-            #clock-container {
-                width: 100vw;
+    st.markdown(
+        f"""
+        <style>
+            html, body, [data-testid="stAppViewContainer"] {{
                 height: 100vh;
+                margin: 0;
+                padding: 0;
+            }}
+
+            [data-testid="stAppViewContainer"] {{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-family: monospace;
-                font-size: 15vw;
-                font-weight: bold;
-            }
+            }}
         </style>
 
-        <div id="clock-container">
-            <span id="clock"></span>
+        <div style="
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            width:100vw;
+            height:100vh;
+        ">
+            <h1 style="
+                font-size:12vw;
+                margin:0;
+            ">
+                {now.strftime('%H:%M')}
+            </h1>
         </div>
-
-        <script>
-            function updateClock() {
-                const now = new Date();
-
-                const time = now.toLocaleTimeString(
-                    'it-IT',
-                    {
-                        timeZone: 'Europe/Rome',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
-                    }
-                );
-
-                document.getElementById('clock').textContent = time;
-            }
-
-            updateClock();
-            setInterval(updateClock, 1000);
-        </script>
         """,
         unsafe_allow_html=True,
     )
