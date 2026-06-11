@@ -92,7 +92,7 @@ def load_standings():
 # -----------------------------
 # Load data
 # -----------------------------
-@st.cache_data
+@st.cache_data(ttl=60)
 def load_data():
     gdown.download(url, EXCEL_FILE, quiet=False)
 
@@ -133,7 +133,7 @@ with tab1:
 
     for category, groups in standings.items():
 
-        with st.expander(category, expanded=True):
+        with st.expander(category, expanded=False):
 
             for group_name, df in groups.items():
 
