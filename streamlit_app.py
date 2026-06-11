@@ -119,8 +119,8 @@ global_df = load_data()
 # -----------------------------
 # Tabs
 # -----------------------------
-tab1, tab2, tab3 = st.tabs(
-    ["Standings", "Next Matches", "Search Team"]
+tab1, tab2, tab3, tab4 = st.tabs(
+    ["Standings", "Next Matches", "Search Team", "Clock"]
 )
 
 
@@ -194,3 +194,33 @@ with tab3:
             st.dataframe(results, use_container_width=True, hide_index=True)
     else:
         st.info("Type a team name to search for matches.")
+
+with tab4:
+
+    now = datetime.now(ITALY_TZ)
+
+    st.markdown(
+        f"""
+        <div style="
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            height:70vh;
+        ">
+            <h1 style="
+                font-size:10rem;
+                margin:0;
+            ">
+                {now.strftime('%H:%M')}
+            </h1>
+
+            <h2 style="
+                margin-top:0;
+            ">
+                Rome Time
+            </h2>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
