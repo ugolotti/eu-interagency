@@ -157,6 +157,7 @@ with tab1:
 
                     winner = df_sorted.iloc[0].copy()
                     winner["Group"] = group_name
+                    winner["Team"] = winner[group_name]
                     firsts.append(winner)
 
                 if firsts:
@@ -191,11 +192,13 @@ with tab1:
                     if len(df_sorted) >= 1:
                         winner = df_sorted.iloc[0].copy()
                         winner["Group"] = group_name
+                        winner["Team"] = winner[group_name]
                         firsts.append(winner)
 
                     if len(df_sorted) >= 2:
                         second = df_sorted.iloc[1].copy()
                         second["Group"] = group_name
+                        second["Team"] = second[group_name]
                         seconds.append(second)
 
                 if firsts:
