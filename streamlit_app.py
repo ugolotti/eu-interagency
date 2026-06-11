@@ -162,6 +162,10 @@ with tab2:
 
             st.subheader(f"Court {int(court)}")
             display = court_matches[["MatchDateTime", "Team1", "Team 2"]].copy()
+            display["match_datetime"] = (
+                display["match_datetime"]
+                .dt.strftime("%d-%m %H:%M")
+            )
             display.columns = ["Date & Time", "Team 1", "Team 2"]
             st.dataframe(display, use_container_width=True, hide_index=True)
 
