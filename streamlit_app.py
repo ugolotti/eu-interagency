@@ -113,7 +113,6 @@ def load_data():
 
     return global_df
 
-
 global_df = load_data()
 
 # -----------------------------
@@ -184,7 +183,7 @@ with tab3:
         )
 
         results = global_df.loc[mask, [
-            "MatchDateTime", "Court", "Team1", "Team 2"
+            "MatchDateTime", "Court", "Team1", "Team 2", "Score 1", "Score 2"
         ]].sort_values("MatchDateTime")
 
         if results.empty:
