@@ -136,8 +136,9 @@ with tab1:
 
             for group_name, df in groups.items():
 
+                df_sorted = df.sort_values(["Score", "Points quotient"], ascending=[False, False]).drop(columns=["Tied"], errors="ignore")
                 st.markdown(f"### {group_name}")
-                st.dataframe(df, use_container_width=True, hide_index=True)
+                st.dataframe(df_sorted, use_container_width=True, hide_index=True)
 
 # -----------------------------
 # Tab 2 - Next 3 matches for each court
