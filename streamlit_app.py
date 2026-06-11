@@ -163,6 +163,8 @@ with tab1:
 
                 if firsts:
                     firsts_df = pd.DataFrame(firsts)
+                    cols = ['Team'] + [c for c in firsts_df.columns if c != "Team"]
+                    firsts_df = firsts_df[cols]
 
                     st.markdown("## 2x2 MIX - Ranking of Group Winners")
 
@@ -206,6 +208,8 @@ with tab1:
 
                 if firsts:
                     firsts_df = pd.DataFrame(firsts)
+                    cols = ['Team'] + [c for c in firsts_df.columns if c != "Team"]
+                    firsts_df = firsts_df[cols]
 
                     st.markdown("## 4x4 Mix - Ranking of Group Winners")
 
@@ -223,6 +227,8 @@ with tab1:
 
                 if seconds:
                     seconds_df = pd.DataFrame(seconds)
+                    cols = ['Team'] + [c for c in seconds_df.columns if c != "Team"]
+                    seconds_df = seconds_df[cols]
 
                     st.markdown("## 4x4 Mix - Ranking of Group Runners-up")
 
