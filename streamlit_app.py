@@ -190,10 +190,10 @@ with tab3:
             st.warning("No matches found for that team.")
         else:
             # create combined score column
+            results["Score 1"] = results["Score 1"].fillna(0).astype(int)
+            results["Score 2"] = results["Score 2"].fillna(0).astype(int)
             results["Score"] = (
-                results["Score 1"].astype("Int64").fillna("").astype(str)
-                + "-"
-                + results["Score 2"].astype("Int64").fillna("").astype(str)
+                results["Score 1"].astype(str) + "-" + results["Score 2"].astype(str)
             )
             # drop old score columns
             results = results.drop(columns=["Score 1", "Score 2"])
