@@ -146,7 +146,7 @@ with tab1:
 with tab2:
     st.title("Next Matches by Court")
 
-    now = pd.Timestamp.now(ITALY_TZ)
+    now = datetime.now(ITALY_TZ)
 
     # Only future matches
     upcoming = global_df[global_df["MatchDateTime"] >= now].copy()
