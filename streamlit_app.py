@@ -161,10 +161,7 @@ with tab2:
 
             st.subheader(f"Court {int(court)}")
             display = court_matches[["MatchDateTime", "Team1", "Team 2"]].copy()
-            display["MatchDateTime"] = (
-                display["MatchDateTime"]
-                .dt.strftime("%d-%m %H:%M")
-            )
+            display["MatchDateTime"] = (display["MatchDateTime"].dt.strftime("%d-%m %H:%M"))
             display.columns = ["Date & Time", "Team 1", "Team 2"]
             st.dataframe(display, use_container_width=True, hide_index=True)
 
@@ -198,6 +195,7 @@ with tab3:
             # drop old score columns
             results = results.drop(columns=["Score 1", "Score 2"])
 
+            display["MatchDateTime"] = (display["MatchDateTime"].dt.strftime("%d-%m %H:%M"))
             results = results.rename(columns={"MatchDateTime": "Date & Time"})
             st.dataframe(results, use_container_width=True, hide_index=True)
     else:
