@@ -15,7 +15,8 @@ st_autorefresh(
 # -----------------------------
 # EXCEL_FILE = "EU interagencies schedule.xlsx"
 EXCEL_FILE = "file.xlsx"
-url = 'https://docs.google.com/spreadsheets/d/1oEsp-k_-2u3uhVmK33YaN4LycjW3CzuE/edit?usp=sharing&ouid=105307248857860129530&rtpof=true&sd=true'
+# url = 'https://docs.google.com/spreadsheets/d/1oEsp-k_-2u3uhVmK33YaN4LycjW3CzuE/edit?usp=sharing&ouid=105307248857860129530&rtpof=true&sd=true'
+url = 'https://www.dropbox.com/scl/fi/17x7g3ieq4a2lq0zy2ipw/EU-interagencies-schedule.xlsx'
 ITALY_TZ = ZoneInfo("Europe/Rome")
 
 @st.cache_data(ttl=60)
