@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from streamlit_autorefresh import st_autorefresh
 import gdown
 
@@ -15,7 +16,7 @@ st_autorefresh(
 # EXCEL_FILE = "EU interagencies schedule.xlsx"
 EXCEL_FILE = "file.xlsx"
 url = 'https://docs.google.com/spreadsheets/d/1oEsp-k_-2u3uhVmK33YaN4LycjW3CzuE/edit?usp=sharing&ouid=105307248857860129530&rtpof=true&sd=true'
-
+ITALY_TZ = ZoneInfo("Europe/Rome")
 
 @st.cache_data(ttl=60)
 def load_standings():
@@ -23,7 +24,7 @@ def load_standings():
 
     st.set_page_config(page_title="Tournament Dashboard", layout="wide")
     st.caption(
-        f"Last update: {datetime.now().strftime('%H:%M:%S')}"
+        f"Last update: {datetime.now(ITALY_TZ).strftime('%H:%M:%S')}"
     )
     raw = pd.read_excel(
         EXCEL_FILE,
@@ -100,7 +101,7 @@ def load_data():
 
     st.set_page_config(page_title="Tournament Dashboard", layout="wide")
     st.caption(
-        f"Last update: {datetime.now().strftime('%H:%M:%S')}"
+        f"Last update: {datetime.now(ITALY_TZ).strftime('%H:%M:%S')}"
     )
     global_df = pd.read_excel(EXCEL_FILE, sheet_name="Global", header=3)
 
@@ -148,7 +149,7 @@ with tab1:
 with tab2:
     st.title("Next Matches by Court")
 
-    now = pd.Timestamp.now()
+    now = pd.Timestamp.now(ITALY_TZ)
 
     # Only future matches
     upcoming = global_df[global_df["MatchDateTime"] >= now].copy()
