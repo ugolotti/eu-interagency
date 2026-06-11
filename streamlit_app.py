@@ -191,9 +191,9 @@ with tab3:
         else:
             # create combined score column
             results["Score"] = (
-                results["Score 1"].fillna("").astype(str)
+                results["Score 1"].astype("Int64").fillna("").astype(str)
                 + "-"
-                + results["Score 2"].fillna("").astype(str)
+                + results["Score 2"].astype("Int64").fillna("").astype(str)
             )
             # drop old score columns
             results = results.drop(columns=["Score 1", "Score 2"])
