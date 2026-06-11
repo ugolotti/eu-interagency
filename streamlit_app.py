@@ -109,7 +109,7 @@ def load_data():
     global_df["MatchDateTime"] = pd.to_datetime(
         global_df["Date"].astype(str) + " " + global_df["Time"].astype(str),
         errors="coerce"
-    )
+    ).dt.tz_localize(ITALY_TZ)
 
     return global_df
 
