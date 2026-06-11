@@ -172,7 +172,17 @@ with tab2:
 with tab3:
     st.title("Find Matches by Team")
 
-    team_name = st.text_input("Enter a team name:")
+    # build unique team list from both columns
+    teams = sorted(
+        set(global_df["Team1"].dropna().astype(str))
+        | set(global_df["Team 2"].dropna().astype(str))
+    )
+    team_name = st.selectbox(
+        "Select a team:",
+        options=teams,
+        index=None,
+        placeholder="Start typing a team..."
+    )
 
     if team_name:
         mask = (
