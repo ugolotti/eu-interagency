@@ -215,11 +215,6 @@ with tab4:
                 {now.strftime('%H:%M')}
             </h1>
 
-            <h2 style="
-                margin-top:0;
-            ">
-                Rome Time
-            </h2>
         </div>
         """,
         unsafe_allow_html=True,
