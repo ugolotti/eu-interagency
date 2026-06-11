@@ -141,6 +141,97 @@ with tab1:
                 st.markdown(f"### {group_name}")
                 st.dataframe(df_sorted, use_container_width=True, hide_index=True)
 
+            # -----------------------------
+            # Rankings of qualified teams
+            # -----------------------------
+
+            # 2x2 MIX -> ranking of all group winners
+            if category == "2x2 MIX":
+                firsts = []
+
+                for group_name, df in standings["2x2 MIX"].items():
+                    df_sorted = df.sort_values(
+                        ["Score", "Points quotient"],
+                        ascending=[False, False]
+                    )
+
+                    winner = df_sorted.iloc[0].copy()
+                    winner["Group"] = group_name
+                    firsts.append(winner)
+
+                if firsts:
+                    firsts_df = pd.DataFrame(firsts)
+
+                    st.markdown("## 2x2 MIX - Ranking of Group Winners")
+
+                    firsts_df = firsts_df.sort_values(
+                        ["Score", "Points quotient"],
+                        ascending=[False, False]
+                    ).drop(columns=["Tied"], errors="ignore")
+
+                    cols = ["Group"] + [c for c in firsts_df.columns if c != "Group"]
+                    st.dataframe(
+                        firsts_df[cols],
+                        use_container_width=True,
+                        hide_index=True
+                    )
+
+            # 4x4 Mix -> ranking of group winners and runners-up
+            if category == "4x4 Mix":
+
+                firsts = []
+                seconds = []
+
+                for group_name, df in standings["4x4 Mix"].items():
+                    df_sorted = df.sort_values(
+                        ["Score", "Points quotient"],
+                        ascending=[False, False]
+                    )
+
+                    if len(df_sorted) >= 1:
+                        winner = df_sorted.iloc[0].copy()
+                        winner["Group"] = group_name
+                        firsts.append(winner)
+
+                    if len(df_sorted) >= 2:
+                        second = df_sorted.iloc[1].copy()
+                        second["Group"] = group_name
+                        seconds.append(second)
+
+                if firsts:
+                    firsts_df = pd.DataFrame(firsts)
+
+                    st.markdown("## 4x4 Mix - Ranking of Group Winners")
+
+                    firsts_df = firsts_df.sort_values(
+                        ["Score", "Points quotient"],
+                        ascending=[False, False]
+                    ).drop(columns=["Tied"], errors="ignore")
+
+                    cols = ["Group"] + [c for c in firsts_df.columns if c != "Group"]
+                    st.dataframe(
+                        firsts_df[cols],
+                        use_container_width=True,
+                        hide_index=True
+                    )
+
+                if seconds:
+                    seconds_df = pd.DataFrame(seconds)
+
+                    st.markdown("## 4x4 Mix - Ranking of Group Runners-up")
+
+                    seconds_df = seconds_df.sort_values(
+                        ["Score", "Points quotient"],
+                        ascending=[False, False]
+                    ).drop(columns=["Tied"], errors="ignore")
+
+                    cols = ["Group"] + [c for c in seconds_df.columns if c != "Group"]
+                    st.dataframe(
+                        seconds_df[cols],
+                        use_container_width=True,
+                        hide_index=True
+                    )
+
 # -----------------------------
 # Tab 2 - Next 3 matches for each court
 # -----------------------------
