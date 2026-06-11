@@ -189,6 +189,15 @@ with tab3:
         if results.empty:
             st.warning("No matches found for that team.")
         else:
+            # create combined score column
+            results["Score"] = (
+                results["Score 1"].fillna("").astype(str)
+                + "-"
+                + results["Score 2"].fillna("").astype(str)
+            )
+            # drop old score columns
+            results = results.drop(columns=["Score 1", "Score 2"])
+
             results = results.rename(columns={"MatchDateTime": "Date & Time"})
             st.dataframe(results, use_container_width=True, hide_index=True)
     else:
