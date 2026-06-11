@@ -214,54 +214,53 @@ with tab3:
         st.info("Type a team name to search for matches.")
 
 with tab4:
-import streamlit as st
 
-st.set_page_config(layout="wide")
+    st.set_page_config(layout="wide")
 
-st.markdown(
-    """
-    <style>
-        .block-container {
-            padding: 0;
-            max-width: 100%;
-        }
+    st.markdown(
+        """
+        <style>
+            .block-container {
+                padding: 0;
+                max-width: 100%;
+            }
 
-        #clock-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: monospace;
-            font-size: 15vw;
-            font-weight: bold;
-        }
-    </style>
+            #clock-container {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: monospace;
+                font-size: 15vw;
+                font-weight: bold;
+            }
+        </style>
 
-    <div id="clock-container">
-        <span id="clock"></span>
-    </div>
+        <div id="clock-container">
+            <span id="clock"></span>
+        </div>
 
-    <script>
-        function updateClock() {
-            const now = new Date();
+        <script>
+            function updateClock() {
+                const now = new Date();
 
-            const time = now.toLocaleTimeString(
-                'it-IT',
-                {
-                    timeZone: 'Europe/Rome',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                }
-            );
+                const time = now.toLocaleTimeString(
+                    'it-IT',
+                    {
+                        timeZone: 'Europe/Rome',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    }
+                );
 
-            document.getElementById('clock').textContent = time;
-        }
+                document.getElementById('clock').textContent = time;
+            }
 
-        updateClock();
-        setInterval(updateClock, 1000);
-    </script>
-    """,
-    unsafe_allow_html=True,
-)
+            updateClock();
+            setInterval(updateClock, 1000);
+        </script>
+        """,
+        unsafe_allow_html=True,
+    )
