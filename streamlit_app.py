@@ -195,7 +195,7 @@ with tab3:
             # drop old score columns
             results = results.drop(columns=["Score 1", "Score 2"])
 
-            display["MatchDateTime"] = (display["MatchDateTime"].dt.strftime("%d-%m %H:%M"))
+            results["MatchDateTime"] = results["MatchDateTime"].dt.strftime("%d-%m %H:%M")
             results = results.rename(columns={"MatchDateTime": "Date & Time"})
             st.dataframe(results, use_container_width=True, hide_index=True)
     else:
