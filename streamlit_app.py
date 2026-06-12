@@ -251,6 +251,7 @@ with tab2:
     st.title("Next Matches by Court")
 
     now = datetime.now(ITALY_TZ)
+    now = datetime(2026, 6, 13, 15, 0, 0, tzinfo=ITALY_TZ)
 
     # Only future matches
     upcoming = global_df[global_df["MatchDateTime"] >= now].copy()
