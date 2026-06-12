@@ -23,7 +23,7 @@ ITALY_TZ = ZoneInfo("Europe/Rome")
 def load_standings():
     gdown.download(url, EXCEL_FILE, quiet=False)
 
-    st.set_page_config(page_title="Tournament Dashboard", layout="wide")
+    st.set_page_config(page_title="EU Interagency Beach Volley Tournament Dashboard", layout="wide")
     raw = pd.read_excel(
         EXCEL_FILE,
         sheet_name="Standings",
@@ -97,7 +97,7 @@ def load_standings():
 def load_data():
     gdown.download(url, EXCEL_FILE, quiet=False)
 
-    st.set_page_config(page_title="Tournament Dashboard", layout="wide")
+    st.set_page_config(page_title="EU Interagency Beach Volley Tournament Dashboard", layout="wide")
     st.caption(
         f"Last update: {datetime.now(ITALY_TZ).strftime('%H:%M:%S')}"
     )
