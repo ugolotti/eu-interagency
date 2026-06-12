@@ -354,3 +354,6 @@ with tab4:
         """,
         unsafe_allow_html=True,
     )
+
+st.divider()
+st.caption("Made with ❤️ by Ingegnerini del JRC")
