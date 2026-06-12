@@ -119,8 +119,8 @@ global_df = load_data()
 # -----------------------------
 # Tabs
 # -----------------------------
-tab1, tab2, tab3, tab4 = st.tabs(
-    ["Standings", "Next Matches", "Search Team", "Clock"]
+tab1, tab2, tab3, tab4, tab5 = st.tabs(
+    ["Standings", "Next Matches", "Search Team", "Search Player", "Clock"]
 )
 
 
@@ -316,7 +316,85 @@ with tab3:
     else:
         st.info("Type a team name to search for matches.")
 
+# -----------------------------
+# Tab 4 - Search by player name
+# -----------------------------
 with tab4:
+    st.title("Find Matches by Player")
+
+    player_cols = [
+        c for c in global_df.columns
+        if str(c).startswith("Giocatore ")
+    ]
+
+    players = sorted(
+        {
+            str(player).strip()
+            for col in player_cols
+            for player in global_df[col].dropna()
+            if str(player).strip()
+        }
+    )
+
+    player_name = st.selectbox(
+        "Select a player:",
+        options=players,
+        index=None,
+        placeholder="Start typing a player..."
+    )
+
+    if player_name:
+
+        mask = False
+
+        for col in player_cols:
+            mask = global_df[player_cols].astype(str).apply(
+                lambda row: row.str.strip().str.lower().eq(player_name.strip().lower()).any(),
+                axis=1
+            )
+
+        results = global_df.loc[
+            mask,
+            [
+                "MatchDateTime",
+                "Court",
+                "Team1",
+                "Team 2",
+                "Score 1",
+                "Score 2"
+            ]
+        ].sort_values("MatchDateTime")
+
+        if results.empty:
+            st.warning("No matches found for that player.")
+        else:
+            results["Score 1"] = results["Score 1"].fillna(0).astype(int)
+            results["Score 2"] = results["Score 2"].fillna(0).astype(int)
+
+            results["Score"] = (
+                results["Score 1"].astype(str)
+                + "-"
+                + results["Score 2"].astype(str)
+            )
+
+            results = results.drop(columns=["Score 1", "Score 2"])
+
+            results["MatchDateTime"] = results["MatchDateTime"].dt.strftime("%d-%m %H:%M")
+
+            results = results.rename(
+                columns={"MatchDateTime": "Date & Time"}
+            )
+
+            st.dataframe(
+                results,
+                use_container_width=True,
+                hide_index=True
+            )
+
+    else:
+        st.info("Type a player name to search for matches.")
+
+with tab5:
 
     now = datetime.now(ITALY_TZ)
 
